@@ -43,7 +43,7 @@ public abstract class Proyecto implements Cloneable {
         return new LinkedList<>(tareas);
     }
     
-    //Propiedad Calculada
+    
 
     public int getDuracion() {
         int duracionTotal = 0;
@@ -54,7 +54,6 @@ public abstract class Proyecto implements Cloneable {
     }
 
 
-    //Metodos
     public HashSet<Tarea> getTareasPorFase(Fase fase) {
         HashSet<Tarea> conjunto = new HashSet<>();
         LinkedList<Tarea> lista = new LinkedList<>(this.tareas);
@@ -72,7 +71,7 @@ public abstract class Proyecto implements Cloneable {
         return tareas.add(new Tarea(nombre, duracion, fase));
     }
     
-    //metodo sobrecargado
+    
     public boolean añadirTarea(Tarea t) {
         return añadirTarea(t.getNombre(), t.getDuracion(), t.getFase());
     }
@@ -92,9 +91,7 @@ public abstract class Proyecto implements Cloneable {
 
         return false;
     }
-
-
-    public boolean finalizar() {
+ public boolean finalizar() {
         Estado e = this.getEstado();
         if (e.equals(Estado.EN_MARCHA)) {
             for (Tarea t : tareas) {
@@ -110,14 +107,14 @@ public abstract class Proyecto implements Cloneable {
     }
 
     
-    //Arranque y finalizacion del Proyecto
+    
     public abstract boolean esArrancable();
 
     public boolean arrancar() {
         Estado e = this.getEstado();
-        if (e.equals(Estado.NO_INICIADO)) { //1)
-            if (!this.getTareasPorFase(Fase.ANALISIS).isEmpty()) { //2)
-                if (esArrancable()) { //3) Depende de los proyectos
+        if (e.equals(Estado.NO_INICIADO)) { 
+            if (!this.getTareasPorFase(Fase.ANALISIS).isEmpty()) { 
+                if (esArrancable()) { 
                     this.setEstado(Estado.EN_MARCHA);
                     return true;
                 }
@@ -127,7 +124,7 @@ public abstract class Proyecto implements Cloneable {
         return false;
     }
     
-    //Metodo Object
+    
     @Override
     public Proyecto clone() {
         try {
@@ -145,7 +142,7 @@ public abstract class Proyecto implements Cloneable {
         return null;
     }
 
-    //Ordenacion de Tareas
+    
     public List<Tarea> getTareasOrdenadas(Comparator<Tarea> criterio) {
         List<Tarea> lista = new LinkedList<>(tareas);
         Collections.sort(lista, criterio);
